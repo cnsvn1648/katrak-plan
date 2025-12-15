@@ -1,0 +1,32 @@
+name: CI Smoke Checks
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Smoke: check read endpoint
+        env:
+          API_BASE: ${{ secrets.GS_EXEC_URL }}
+        run: node tools/check_remote.js "$API_BASE"
+
+      - name: Smoke: test upsert
+        env:
+          API_BASE: ${{ secrets.GS_EXEC_URL }}
+        run: node tools/test_upsert.js "$API_BASE"

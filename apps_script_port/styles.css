@@ -1,0 +1,15 @@
+body{ font-family: Arial, Helvetica, sans-serif; margin:0; padding:0; background:#f7fafc; color:#0f172a; }
+#app{ max-width:980px; margin:20px auto; background:#fff; border-radius:8px; box-shadow:0 4px 14px rgba(2,6,23,0.06); padding:18px; }
+header h1{ margin:0 0 12px 0; font-size:20px }
+main{ display:flex; gap:18px; }
+#form-wrap{ flex:0 0 320px; }
+#list-wrap{ flex:1; }
+label{ display:block; margin-bottom:8px; font-size:13px }
+input[type=text], input{ width:100%; padding:8px; box-sizing:border-box; border:1px solid #e6eef6; border-radius:6px }
+button{ padding:6px 10px; border-radius:6px; border:0; background:#2563eb; color:white; cursor:pointer }
+button.danger{ background:#dc2626 }
+.record{ padding:10px; border-bottom:1px solid #eef2f7; display:flex; justify-content:space-between; align-items:center }
+.r-title{ font-weight:600 }
+.r-sub{ color:#475569; font-size:13px }
+.r-actions button{ margin-left:8px }
+footer{ margin-top:12px; font-size:12px; color:#64748b }

@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ensar Mermer — App</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="app">
+      <header><h1>Ensar Mermer — Demo</h1></header>
+      <nav id="tabs" style="margin-bottom:12px">
+        <button class="tab active" data-tab="bloklar">Bloklar</button>
+        <button class="tab" data-tab="makineler">Makineler</button>
+      </nav>
+      <main>
+        <section id="bloklar" class="tabcontent">
+          <h2>Bloklar</h2>
+          <div style="display:flex;gap:12px">
+            <div style="flex:0 0 320px">
+              <h3>Yeni / Düzenle</h3>
+              <form id="blokForm">
+                <input type="hidden" id="blokId">
+                <label>Ad<br><input id="blokAd" placeholder="Blok adı"></label>
+                <label>Ana İstasyon<br><input id="blokGrup" placeholder="Ana istasyon"></label>
+                <label>Alt İstasyon<br><input id="blokAlt" placeholder="Alt istasyon"></label>
+                <label>Açıklama<br><input id="blokAc" placeholder="Açıklama"></label>
+                <div style="margin-top:8px"><button id="blokSave" type="button">Kaydet</button> <button id="blokCancel" type="button">İptal</button></div>
+              </form>
+            </div>
+            <div style="flex:1">
+              <h3>Liste</h3>
+              <div id="blokList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="makineler" class="tabcontent" style="display:none">
+          <h2>Makineler</h2>
+          <div style="display:flex;gap:12px">
+            <div style="flex:0 0 320px">
+              <h3>Yeni / Düzenle</h3>
+              <form id="makForm">
+                <input type="hidden" id="mkId">
+                <label>Ana İstasyon<br><input id="mkGrup" placeholder="Ana istasyon"></label>
+                <label>Alt İstasyon<br><input id="mkAlt" placeholder="Alt istasyon"></label>
+                <label>Makine Adı<br><input id="mkAd" placeholder="Makine adı"></label>
+                <label>Açıklama<br><input id="mkAc" placeholder="Açıklama"></label>
+                <div style="margin-top:8px"><button id="mkSave" type="button">Kaydet</button> <button id="mkCancel" type="button">İptal</button></div>
+              </form>
+            </div>
+            <div style="flex:1">
+              <h3>Liste</h3>
+              <div id="mkList"></div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+      <footer><small>Apps Script MVP — küçük veriler için</small></footer>
+    </div>
+
+    <style>
+      /* inlined minimal styles from styles.css */
+      body{ font-family: Arial, Helvetica, sans-serif; margin:0; padding:12px; background:#f7fafc; color:#0f172a; }
+      #app{ max-width:980px; margin:12px auto; background:#fff; border-radius:8px; box-shadow:0 4px 14px rgba(2,6,23,0.06); padding:18px; }
+      header h1{ margin:0 0 12px 0; font-size:20px }
+      label{ display:block; margin-bottom:8px; font-size:13px }
+      input[type=text], input{ width:100%; padding:8px; box-sizing:border-box; border:1px solid #e6eef6; border-radius:6px }
+      button{ padding:6px 10px; border-radius:6px; border:0; background:#2563eb; color:white; cursor:pointer }
+      button.danger{ background:#dc2626 }
+      .record{ padding:10px; border-bottom:1px solid #eef2f7; display:flex; justify-content:space-between; align-items:center }
+      .r-title{ font-weight:600 }
+      .r-sub{ color:#475569; font-size:13px }
+      .r-actions button{ margin-left:8px }
+      nav#tabs{ display:flex; gap:8px }
+      nav#tabs .tab{ background:#eef2ff; border:0; padding:6px 10px; border-radius:6px; cursor:pointer }
+      nav#tabs .tab.active{ background:#2563eb; color:white }
+    </style>
+
+    <script>
+    // Inline client for two collections: bloklar (key: 'bloklar_yeni_demo') and makineler (key: 'v91_machines')
+    (function(){
+      function el(id){ return document.getElementById(id); }
+      function renderList(containerId, list, collection){
+        const wrap = el(containerId);
+        wrap.innerHTML = '';
+        if(!list || list.length===0){ wrap.textContent = 'Henüz kayıt yok.'; return; }
+        list.forEach(r=>{
+          const row = document.createElement('div'); row.className='record';
+          const left = document.createElement('div');
+          const title = document.createElement('div'); title.className='r-title'; title.textContent = (r.ad||r.name||'') + ' — ' + (r.grup||'');
+          const sub = document.createElement('div'); sub.className='r-sub'; sub.textContent = (r.alt||'') + ' · ' + (r.aciklama||'');
+          left.appendChild(title); left.appendChild(sub);
+          const actions = document.createElement('div'); actions.className='r-actions';
+          const btnEdit = document.createElement('button'); btnEdit.textContent='Düzenle'; btnEdit.addEventListener('click', function(){ loadToForm(collection, r); });
+          const btnDel = document.createElement('button'); btnDel.textContent='Sil'; btnDel.className='danger'; btnDel.addEventListener('click', function(){ if(!confirm('Silinsin mi?')) return; google.script.run.withSuccessHandler(function(){ refresh(collection); }).deleteRecord(r.id, collection); });
+          actions.appendChild(btnEdit); actions.appendChild(btnDel);
+          row.appendChild(left); row.appendChild(actions);
+          wrap.appendChild(row);
+        });
+      }
+
+      function refresh(collection){
+        google.script.run.withSuccessHandler(function(list){ renderList(collection === 'v91_machines' ? 'mkList' : 'blokList', list, collection); }).listRecords(collection);
+      }
+
+      function loadToForm(collection, rec){
+        if(collection === 'v91_machines'){
+          el('mkId').value = rec.id||''; el('mkGrup').value = rec.grup||''; el('mkAlt').value = rec.alt||''; el('mkAd').value = rec.ad||''; el('mkAc').value = rec.aciklama||'';
+        }else{
+          el('blokId').value = rec.id||''; el('blokAd').value = rec.ad||''; el('blokGrup').value = rec.grup||''; el('blokAlt').value = rec.alt||''; el('blokAc').value = rec.aciklama||'';
+        }
+      }
+
+      function clearForm(collection){
+        if(collection === 'v91_machines'){ el('mkId').value=''; el('mkGrup').value=''; el('mkAlt').value=''; el('mkAd').value=''; el('mkAc').value=''; }
+        else{ el('blokId').value=''; el('blokAd').value=''; el('blokGrup').value=''; el('blokAlt').value=''; el('blokAc').value=''; }
+      }
+
+      function saveCollection(collection){
+        if(collection === 'v91_machines'){
+          const rec = { id: el('mkId').value || undefined, grup: el('mkGrup').value||'', alt: el('mkAlt').value||'', ad: el('mkAd').value||'', aciklama: el('mkAc').value||'' };
+          google.script.run.withSuccessHandler(function(res){ if(res && res.ok){ clearForm(collection); refresh(collection); } else alert('Hata: '+(res && res.error)); }).upsertRecord(rec, collection);
+        }else{
+          const rec = { id: el('blokId').value || undefined, ad: el('blokAd').value||'', grup: el('blokGrup').value||'', alt: el('blokAlt').value||'', aciklama: el('blokAc').value||'' };
+          google.script.run.withSuccessHandler(function(res){ if(res && res.ok){ clearForm(collection); refresh(collection); } else alert('Hata: '+(res && res.error)); }).upsertRecord(rec, collection);
+        }
+      }
+
+      // Tab handling
+      document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('#tabs .tab').forEach(function(btn){ btn.addEventListener('click', function(){ document.querySelectorAll('#tabs .tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); var tab=btn.dataset.tab; document.querySelectorAll('.tabcontent').forEach(tc=>tc.style.display='none'); document.getElementById(tab).style.display='block'; }); });
+        // wire buttons
+        el('blokSave').addEventListener('click', function(){ saveCollection('bloklar_yeni_demo'); });
+        el('blokCancel').addEventListener('click', function(){ clearForm('bloklar_yeni_demo'); });
+        el('mkSave').addEventListener('click', function(){ saveCollection('v91_machines'); });
+        el('mkCancel').addEventListener('click', function(){ clearForm('v91_machines'); });
+        // initial refresh
+        refresh('bloklar_yeni_demo'); refresh('v91_machines');
+      });
+
+    })();
+    </script>
+  </body>
+</html>
