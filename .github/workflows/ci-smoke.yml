@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Bağımlılıkları yükle
-        run: npm install --no-audit --prefer-offline --progress=false
+        run: npm ci --silent
 
       - name: 'Atlama uyarısı: GS_EXEC_URL eksik'
         if: ${{ secrets.GS_EXEC_URL == '' }}
