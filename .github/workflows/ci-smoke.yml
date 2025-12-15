@@ -21,13 +21,12 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Smoke: check read endpoint
+      - name: "Smoke: check read endpoint"
         env:
-          API_BASE: ${{ secrets.GS_EXEC_URL }}
+          API_BASE: "${{ secrets.GS_EXEC_URL }}"
         run: node tools/check_remote.js "$API_BASE"
 
-      - name: Smoke: test upsert
+      - name: "Smoke: test upsert"
         env:
-          API_BASE: ${{ secrets.GS_EXEC_URL }}
+          API_BASE: "${{ secrets.GS_EXEC_URL }}"
         run: node tools/test_upsert.js "$API_BASE"
-
