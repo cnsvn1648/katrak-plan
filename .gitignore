@@ -1,0 +1,6 @@
+local_proxy/server.stdout.log
+local_proxy/server.stderr.log
+local_proxy/*.log
+*.log
+node_modules/
+.DS_Store
