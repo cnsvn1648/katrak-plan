@@ -21,12 +21,19 @@ jobs:
       - name: Install deps
         run: npm install --no-audit --prefer-offline --progress=false
 
+      - name: 'Skip-notice: GS_EXEC_URL missing'
+        if: ${{ secrets.GS_EXEC_URL == '' }}
+        run: |
+          echo "GS_EXEC_URL secret is not set. Skipping smoke tests."
+
       - name: "Smoke: check read endpoint"
+        if: ${{ secrets.GS_EXEC_URL != '' }}
         env:
           API_BASE: "${{ secrets.GS_EXEC_URL }}"
         run: node tools/check_remote.js "$API_BASE"
 
       - name: "Smoke: test upsert"
+        if: ${{ secrets.GS_EXEC_URL != '' }}
         env:
           API_BASE: "${{ secrets.GS_EXEC_URL }}"
         run: node tools/test_upsert.js "$API_BASE"
