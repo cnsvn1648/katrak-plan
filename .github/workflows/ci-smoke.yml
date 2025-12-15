@@ -1,4 +1,4 @@
-name: CI Smoke Checks
+name: CI Duman Kontrolleri
 
 on:
   push:
@@ -7,32 +7,32 @@ on:
     branches: [ main, master ]
 
 jobs:
-  smoke:
+  duman:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Çıkış yapmak
         uses: actions/checkout@v4
 
-      - name: Use Node.js 18
+      - name: Node.js 18 kullanın
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install deps
+      - name: Bağımlılıkları yükle
         run: npm install --no-audit --prefer-offline --progress=false
 
-      - name: 'Skip-notice: GS_EXEC_URL missing'
+      - name: 'Atlama uyarısı: GS_EXEC_URL eksik'
         if: ${{ secrets.GS_EXEC_URL == '' }}
         run: |
-          echo "GS_EXEC_URL secret is not set. Skipping smoke tests."
+          echo "GS_EXEC_URL gizli anahtarı ayarlanmamış. Duman testleri atlanıyor."
 
-      - name: "Smoke: check read endpoint"
+      - name: "Duman: okuma uç noktasını kontrol et"
         if: ${{ secrets.GS_EXEC_URL != '' }}
         env:
           API_BASE: "${{ secrets.GS_EXEC_URL }}"
         run: node tools/check_remote.js "$API_BASE"
 
-      - name: "Smoke: test upsert"
+      - name: "Duman: test upsert"
         if: ${{ secrets.GS_EXEC_URL != '' }}
         env:
           API_BASE: "${{ secrets.GS_EXEC_URL }}"
