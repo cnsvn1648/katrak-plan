@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Install deps
-        run: npm ci
+        run: npm install --no-audit --prefer-offline --progress=false
 
       - name: "Smoke: check read endpoint"
         env:
