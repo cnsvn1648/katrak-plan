@@ -55,6 +55,7 @@ jobs:
         with:
           name: ci-debug-logs
           path: |
+            npm-install.log
             npm-debug.log
             .npm/_logs/**
 
