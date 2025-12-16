@@ -32,8 +32,22 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          npm ci --no-audit --no-fund --silent --verbose 2>&1 | tee npm-install.log || (npm install --silent --legacy-peer-deps --no-audit --no-fund 2>&1 | tee -a npm-install.log)
-          exit ${PIPESTATUS[0]}
+            echo "Starting npm ci (output -> npm-install.log)"
+            npm ci --no-audit --no-fund --silent 2>&1 | tee npm-install.log
+            CI_EXIT=${PIPESTATUS[0]}
+            if [ "$CI_EXIT" -ne 0 ]; then
+              echo "npm ci failed with exit $CI_EXIT — trying npm install fallback"
+              npm install --silent --legacy-peer-deps --no-audit --no-fund 2>&1 | tee -a npm-install.log
+              CI_EXIT2=${PIPESTATUS[0]}
+              if [ "$CI_EXIT2" -ne 0 ]; then
+                echo "npm install also failed with exit $CI_EXIT2"
+                exit $CI_EXIT2
+              else
+                echo "npm install fallback succeeded"
+              fi
+            else
+              echo "npm ci succeeded"
+            fi
 
       - name: Upload debug logs (always)
         if: always()
