@@ -28,9 +28,12 @@ jobs:
         run: |
           npm config set registry https://registry.npmjs.org/
 
-      - name: Bağımlılıkları yükle
+      - name: Bağımlılıkları yükle (verbose capture)
+        shell: bash
         run: |
-          npm ci --no-audit --no-fund --silent || npm install --silent --legacy-peer-deps --no-audit --no-fund
+          set -o pipefail
+          npm ci --no-audit --no-fund --silent --verbose 2>&1 | tee npm-install.log || (npm install --silent --legacy-peer-deps --no-audit --no-fund 2>&1 | tee -a npm-install.log)
+          exit ${PIPESTATUS[0]}
 
       - name: Upload debug logs (always)
         if: always()
