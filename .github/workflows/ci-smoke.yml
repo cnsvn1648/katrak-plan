@@ -107,7 +107,6 @@ jobs:
         if: ${{ env.API_BASE == '' }}
         run: |
           echo "GS_EXEC_URL gizli anahtarı ayarlanmamış. Duman testleri atlanıyor."
-      - name: "Duman: okuma uç noktasını kontrol et"
 
       - name: "Duman: diag - curl GET (debug)"
         if: false
