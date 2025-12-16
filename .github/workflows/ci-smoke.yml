@@ -29,6 +29,15 @@ jobs:
         run: |
           npm ci --no-audit --no-fund --silent || npm install --silent --legacy-peer-deps --no-audit --no-fund
 
+      - name: Upload debug logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-debug-logs
+          path: |
+            npm-debug.log
+            .npm/_logs/**
+
       - name: 'Atlama uyarısı: GS_EXEC_URL eksik'
         if: ${{ env.API_BASE == '' }}
         run: |
