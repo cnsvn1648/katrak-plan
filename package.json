@@ -1,0 +1,16 @@
+{
+  "name": "ensar-dev-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Small development CORS proxy for Google Apps Script forwarding",
+  "main": "dev_proxy/index.js",
+  "scripts": {
+    "start-proxy": "node dev_proxy/index.js",
+    "start-proxy-target": "TARGET=\"https://script.google.com/macros/s/AKfycbyswQY4spmwSNzMWPNWWPkHXO-yM-CilKbh0aNry917XOVeqGjq7mcXC8pZq8d-awfFrQ/exec\" npm run start-proxy"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7",
+    "puppeteer": "^24.33.0"
+  }
+}
