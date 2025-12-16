@@ -1,0 +1,169 @@
+[
+  {
+    "blokNo": "auto-e2e-1765649378",
+    "blokAdi": "e2e-test",
+    "id": "local-1765649378270-904"
+  },
+  {
+    "blokNo": "TEST-1234",
+    "blokAdi": "test-sync",
+    "id": "test-+1765653604+"
+  },
+  {
+    "test": "plaka_sync_check",
+    "ts": "now",
+    "id": "local-1765656541142-353"
+  },
+  {
+    "key": "v91_kasa_stok_kayitlar",
+    "record": {
+      "id": "test-kasa-1",
+      "name": "Test Kasa 1",
+      "ts": "now"
+    },
+    "id": "local-1765657372653-370"
+  },
+  {
+    "key": "v91_plaka_stok_kayitlar",
+    "record": {
+      "id": "test-plaka-1",
+      "name": "Test Plaka 1",
+      "ts": "now"
+    },
+    "id": "local-1765657372661-375"
+  },
+  {
+    "key": "v91_moza_kirik",
+    "record": {
+      "id": "test-moza-1",
+      "name": "Test Moza 1",
+      "ts": "now"
+    },
+    "id": "local-1765657372667-109"
+  },
+  {
+    "key": "v91_sayalama_kayitlar",
+    "record": {
+      "id": "mj4v6t65tqsf8qnrs9r",
+      "tarih": "",
+      "blokNo": "2131321",
+      "tasin": "Asdasd",
+      "en": "33432",
+      "boy": "4324",
+      "genislik": "32423",
+      "m3": "4.687.067,842",
+      "out": [
+        {
+          "no": "2131321/1",
+          "en": "3213",
+          "boy": "3213",
+          "gen": "213",
+          "m3": "2.198,878",
+          "sure": "",
+          "fire": ""
+        }
+      ]
+    },
+    "id": "local-1765745649300-60"
+  },
+  {
+    "key": "v91_sayalama_kayitlar",
+    "record": {
+      "id": "mj4vaq2s5yw0e0okc6u",
+      "tarih": "2025-12-05",
+      "blokNo": "4231",
+      "tasin": "Dafa",
+      "en": "3213",
+      "boy": "3213",
+      "genislik": "3213",
+      "m3": "33.168,985",
+      "out": [
+        {
+          "no": "4231/1",
+          "en": "ewqe",
+          "boy": "ewqe",
+          "gen": "ewqe",
+          "m3": "",
+          "sure": "22131",
+          "fire": ""
+        }
+      ]
+    },
+    "id": "local-1765745649306-929"
+  },
+  {
+    "key": "v91_sayalama_kayitlar",
+    "record": {
+      "id": "mj4vdl6cvp42o25zlb8",
+      "tarih": "",
+      "blokNo": "2131321",
+      "tasin": "Asdasd",
+      "en": "33432",
+      "boy": "4324",
+      "genislik": "32423",
+      "m3": "4.687.067,842",
+      "out": [
+        {
+          "no": "2131321/1",
+          "en": "2312",
+          "boy": "2313",
+          "gen": "3213",
+          "m3": "17.182,019",
+          "sure": "",
+          "fire": ""
+        }
+      ]
+    },
+    "id": "local-1765745649310-91"
+  },
+  {
+    "key": "v91_sayalama_kayitlar",
+    "record": {
+      "id": "mj5ec8lohg9tzlgjvg",
+      "tarih": "2025-12-12",
+      "blokNo": "32123",
+      "tasin": "Dsad",
+      "en": "312",
+      "boy": "3213",
+      "genislik": "123",
+      "m3": "123,302",
+      "out": [
+        {
+          "no": "32123/1",
+          "en": "231",
+          "boy": "231",
+          "gen": "231",
+          "m3": "12,326",
+          "sure": "SAD",
+          "fire": "ASD"
+        }
+      ]
+    },
+    "id": "local-1765745649315-749"
+  },
+  {
+    "key": "v91_sayalama_kayitlar",
+    "record": {
+      "id": "mj5efwb499g0w65fh4j",
+      "tarih": "",
+      "blokNo": "32123",
+      "tasin": "Dsad",
+      "en": "312",
+      "boy": "3213",
+      "genislik": "123",
+      "m3": "123,302",
+      "out": [
+        {
+          "no": "32123/1",
+          "en": "2313234",
+          "boy": "234",
+          "gen": "243",
+          "m3": "131.535,112",
+          "sure": "",
+          "fire": ""
+        }
+      ]
+    },
+    "id": "local-1765745649317-344"
+  }
+]
