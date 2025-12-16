@@ -33,3 +33,11 @@ Kısa özet
 - Workflow adı: "CI Duman Kontrolleri"
 - `env.API_BASE` üzerinden secrets kullanımı
 - Node 18 + `npm ci`
+
+CI Sonuçları (özet)
+-------------------
+- Tarih: 16 Aralık 2025
+- En son workflow run: 20278672956 (branch: remote-first-gs-port-pr) — conclusion: success
+- Özet: `Bağımlılıkları yükle` adımı başarılı şekilde tamamlandı; uzak test adımları `Duman: diag - curl GET (debug)`, `Duman: okuma uç noktasını kontrol et` ve `Duman: test upsert` hepsi `success` döndürdü.
+
+Not: Ayrıntılı loglar `ci-debug-logs` artefaktında bulunuyor; isterseniz indirip analiz edebilirim.
