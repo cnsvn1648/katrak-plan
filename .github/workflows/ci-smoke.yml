@@ -109,7 +109,7 @@ jobs:
           echo "GS_EXEC_URL gizli anahtarı ayarlanmamış. Duman testleri atlanıyor."
 
       - name: "Duman: diag - curl GET (debug)"
-        if: false
+        if: ${{ env.API_BASE != '' }}
         shell: bash
         run: |
           set -o pipefail
@@ -123,11 +123,11 @@ jobs:
           echo "---- end ----"
 
       - name: "Duman: okuma uç noktasını kontrol et"
-        if: false
+        if: ${{ env.API_BASE != '' }}
         continue-on-error: true
         run: node tools/check_remote.js "$API_BASE"
 
       - name: "Duman: test upsert"
-        if: false
+        if: ${{ env.API_BASE != '' }}
         continue-on-error: true
         run: node tools/test_upsert.js "$API_BASE"
