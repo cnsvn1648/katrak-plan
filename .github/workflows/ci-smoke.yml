@@ -21,7 +21,8 @@ jobs:
           node-version: '18'
 
       - name: Bağımlılıkları yükle
-        run: npm ci --silent
+        run: |
+          npm ci --silent || npm install --silent
 
       - name: 'Atlama uyarısı: GS_EXEC_URL eksik'
         if: ${{ env.API_BASE == '' }}
