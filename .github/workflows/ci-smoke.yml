@@ -20,9 +20,14 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Node & npm versiyonları
+        run: |
+          node -v
+          npm -v
+
       - name: Bağımlılıkları yükle
         run: |
-          npm ci --silent || npm install --silent
+          npm ci --no-audit --no-fund --silent || npm install --silent --legacy-peer-deps --no-audit --no-fund
 
       - name: 'Atlama uyarısı: GS_EXEC_URL eksik'
         if: ${{ env.API_BASE == '' }}
