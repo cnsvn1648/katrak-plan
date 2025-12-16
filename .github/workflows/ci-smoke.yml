@@ -9,6 +9,8 @@ on:
 jobs:
   duman:
     runs-on: ubuntu-latest
+    env:
+      API_BASE: "${{ secrets.GS_EXEC_URL }}"
     steps:
       - name: Çıkış yapmak
         uses: actions/checkout@v4
@@ -22,18 +24,14 @@ jobs:
         run: npm ci --silent
 
       - name: 'Atlama uyarısı: GS_EXEC_URL eksik'
-        if: ${{ secrets.GS_EXEC_URL == '' }}
+        if: ${{ env.API_BASE == '' }}
         run: |
           echo "GS_EXEC_URL gizli anahtarı ayarlanmamış. Duman testleri atlanıyor."
 
       - name: "Duman: okuma uç noktasını kontrol et"
-        if: ${{ secrets.GS_EXEC_URL != '' }}
-        env:
-          API_BASE: "${{ secrets.GS_EXEC_URL }}"
+        if: ${{ env.API_BASE != '' }}
         run: node tools/check_remote.js "$API_BASE"
 
       - name: "Duman: test upsert"
-        if: ${{ secrets.GS_EXEC_URL != '' }}
-        env:
-          API_BASE: "${{ secrets.GS_EXEC_URL }}"
+        if: ${{ env.API_BASE != '' }}
         run: node tools/test_upsert.js "$API_BASE"
